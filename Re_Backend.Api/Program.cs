@@ -1,4 +1,8 @@
 
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Re_Backend.Common.AutoConfiguration;
+
 namespace Re_Backend.Api
 {
     public class Program
@@ -6,7 +10,12 @@ namespace Re_Backend.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            //这里是Autofac的配置
+            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+            builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+            {
+                AutofacConfig.ConfigureContainer(containerBuilder, "Re_Backend.Infrastructure", "Re_Backend.Domain", "Re_Backend.Application");
+            });
             // Add services to the container.
 
             builder.Services.AddControllers();
