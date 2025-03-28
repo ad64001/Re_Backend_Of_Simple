@@ -1,6 +1,7 @@
 
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Re_Backend.Common;
 using Re_Backend.Common.AutoConfiguration;
 
 namespace Re_Backend.Api
@@ -16,6 +17,10 @@ namespace Re_Backend.Api
             {
                 AutofacConfig.ConfigureContainer(containerBuilder, "Re_Backend.Infrastructure", "Re_Backend.Domain", "Re_Backend.Application");
             });
+            //JsonSetting≈‰÷√
+            // ≈‰÷√
+            builder.Services.AddSingleton(new JsonSettings(builder.Configuration));
+
             // Add services to the container.
 
             builder.Services.AddControllers();
