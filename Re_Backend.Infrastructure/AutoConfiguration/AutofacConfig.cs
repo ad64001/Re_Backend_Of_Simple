@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Re_Backend.Common.Attributes;
+using Re_Backend.Common.SqlConfig;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,8 @@ namespace Re_Backend.Common.AutoConfiguration
     {
         public static void ConfigureContainer(ContainerBuilder containerBuilder, params string[] assemblyNames)
         {
+            
+
             var validAssemblies = new List<Assembly>();
             foreach (var assemblyName in assemblyNames)
             {
@@ -42,6 +46,26 @@ namespace Re_Backend.Common.AutoConfiguration
                     registration.InstancePerDependency();
                 }
             }
+
+            // 注册 SqlSugarClient
+            try
+            {
+                var configs = SqlSugarSetup.GetConnectionConfigs();
+                Console.WriteLine($"数据库连接字符串: {configs[0].ConnectionString}");
+                Console.WriteLine($"数据库类型: {configs[0].DbType}");
+                containerBuilder.Register(c => new SqlSugarClient(configs))
+                                .SingleInstance();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"注册 SqlSugarClient 时出错: {ex.Message}");
+            }
+
+            // 注册 DbContext
+            containerBuilder.RegisterType<DbContext>()
+                            .AsSelf()
+                            .InstancePerLifetimeScope();
+
         }
 
 

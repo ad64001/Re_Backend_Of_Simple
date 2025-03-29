@@ -15,7 +15,7 @@ namespace Re_Backend.Api
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
             {
-                AutofacConfig.ConfigureContainer(containerBuilder, "Re_Backend.Infrastructure", "Re_Backend.Domain", "Re_Backend.Application");
+                AutofacConfig.ConfigureContainer(containerBuilder, "Re_Backend.Infrastructure", "Re_Backend.Domain", "Re_Backend.Application", "Re_Backend.Common");
             });
             //JsonSetting≈‰÷√
             // ≈‰÷√

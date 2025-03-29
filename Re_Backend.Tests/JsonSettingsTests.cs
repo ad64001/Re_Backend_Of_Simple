@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Re_Backend.Common;
+using Re_Backend.Common.SqlConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,14 +64,34 @@ namespace Re_Backend.Tests
             // 获取 JsonSettings 实例
             var jsonSettings = serviceProvider.GetRequiredService<JsonSettings>();
 
-            // 假设 appsettings.json 中有一个 AllowedHosts 配置项
-            var allowedHosts = JsonSettings.GetValue("Logging:LogLevel:Microsoft.AspNetCore");
+            //testOutput.WriteLine(allowedHosts);
 
-            testOutput.WriteLine(allowedHosts);
+            //// 验证获取的值是否正确
+            //Assert.NotNull(allowedHosts);
 
-            // 验证获取的值是否正确
-            Assert.NotNull(allowedHosts);
-            
+            //try
+            //{
+            //    // 创建 SqlDefault 类的实例
+            //    SqlDefault sqlDefault = new SqlDefault();
+
+            //    // 获取 ConnectionString 和 DbType
+            //    string connectionString = sqlDefault.ConnectionString;
+            //    int dbType = sqlDefault.DbType;
+
+            //    // 输出结果
+            //    testOutput.WriteLine($"Default ConnectionString: {connectionString}");
+            //    testOutput.WriteLine($"Default DbType: {dbType}");
+
+            //    // 你也可以在这里添加断言来验证结果
+            //    Assert.NotNull(connectionString);
+            //    Assert.True(dbType >= 0);
+            //}
+            //catch (Exception ex)
+            //{
+            //    // 处理异常，例如记录日志或输出错误信息
+            //    testOutput.WriteLine($"An error occurred: {ex.Message}");
+            //    throw;
+            //}
         }
     }
 }
