@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="7.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Re_Backend.Infrastructure\Re_Backend.Infrastructure.csproj" />
   </ItemGroup>
 

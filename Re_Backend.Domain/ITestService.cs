@@ -10,13 +10,13 @@ namespace Re_Backend.Domain
 {
     public interface ITestService
     {
-        string DoSomething();
-    }
+        string DoSomething();    }
 
     [Injectable(IsSingleton = true)]
     public class TestService : ITestService
     {
         private readonly DbContext _dbContext;
+
 
         public TestService(DbContext dbContext)
         {
@@ -37,5 +37,7 @@ namespace Re_Backend.Domain
                 return $"数据库连接测试失败: {ex.Message}";
             }
         }
+
+        
     }
 }

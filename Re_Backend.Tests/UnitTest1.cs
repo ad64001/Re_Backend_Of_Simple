@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Re_Backend.Common;
 using Re_Backend.Common.AutoConfiguration;
+using Re_Backend.Common.SqlConfig;
 using Re_Backend.Domain;
 using System.Reflection;
 using Xunit.Abstractions;
@@ -13,6 +14,8 @@ namespace Re_Backend.Tests
     public class UnitTest1
     {
         private readonly ITestService testService;
+        private readonly ITestDbService testDbService;
+        private readonly IUserService userService;
         private readonly ITestOutputHelper testOutput;
 
         public UnitTest1(ITestOutputHelper testOutput)
@@ -44,7 +47,8 @@ namespace Re_Backend.Tests
 
             // 从容器中解析出 ITestService 实例
             testService = container.Resolve<ITestService>();
-
+            testDbService = container.Resolve<ITestDbService>();
+            userService = container.Resolve<IUserService>();
             
             this.testOutput = testOutput;
         }
@@ -56,12 +60,53 @@ namespace Re_Backend.Tests
 
             // 调用 DoSomething 方法
             testOutput.WriteLine(testService.DoSomething());
+            testOutput.WriteLine(testDbService.DoSomething());
 
             // 这里可以添加更具体的断言，例如验证是否有输出信息等
             Assert.NotNull(testService);
         }
 
-       
+        [Fact]
+        public void TestAdd()
+        {
+            var user = new User
+            {
+                Name = "Test User",
+                Age = 25
+            };
 
-    }
+            // Act
+            userService.AddUser(user);
+
+            // Assert
+            var allUsers = userService.GetAllUsers();
+            Assert.Contains(allUsers, u => u.Name == user.Name && u.Age == user.Age);
+            foreach (var item in allUsers)
+            {
+                testOutput.WriteLine(item.Name);
+            }
+        }
+
+        [Fact]
+        public void TestAll()
+        {
+            var allUsers = userService.GetAllUsers();
+            foreach (var item in allUsers)
+            {
+                testOutput.WriteLine(item.Name);
+            }
+        }
+
+        [Fact]
+        public void TestTran()
+        {
+            // 执行带有事务的方法
+            userService.DoSomethingWithTransaction();
+
+            // 验证数据库操作是否成功
+            var result = userService.GetDbContext().Db.Queryable<dynamic>();
+            Assert.NotNull(result);
+        }
+
+     }
 }

@@ -1,13 +1,13 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Re_Backend.Common.Attributes;
 using Re_Backend.Common.SqlConfig;
+using Re_Backend.Common.Transactions;
+using Re_Backend.Infrastructure;
+using Re_Backend.Infrastructure.SqlConfig;
 using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Re_Backend.Common.AutoConfiguration
 {
@@ -45,6 +45,14 @@ namespace Re_Backend.Common.AutoConfiguration
                 {
                     registration.InstancePerDependency();
                 }
+
+                // 检查类型的方法是否带有 UseTranAttribute 注解
+                var methodsWithAttribute = type.GetMethods().Where(m => m.GetCustomAttributes(typeof(UseTranAttribute), true).Length > 0);
+                if (methodsWithAttribute.Any())
+                {
+                    registration.EnableInterfaceInterceptors();
+                    registration.InterceptedBy(typeof(TransactionInterceptor));
+                }
             }
 
             // 注册 SqlSugarClient
@@ -65,6 +73,26 @@ namespace Re_Backend.Common.AutoConfiguration
             containerBuilder.RegisterType<DbContext>()
                             .AsSelf()
                             .InstancePerLifetimeScope();
+
+            //这里是事务控制
+            // 注册 TransactionHandler
+            containerBuilder.RegisterType<TransactionHandler>()
+                            .InstancePerLifetimeScope();
+
+            // 注册 TransactionInterceptor
+            containerBuilder.RegisterType<TransactionInterceptor>()
+                            .InstancePerLifetimeScope();
+
+
+            // 从容器中解析 DbContext 并进行自动建表
+            containerBuilder.RegisterBuildCallback(container =>
+            {
+                var dbContext = container.Resolve<DbContext>();
+                var tableCreator = new SqlSugarTableCreator(dbContext.Db);
+                tableCreator.CreateTablesFromModels();
+            });
+
+
 
         }
 
