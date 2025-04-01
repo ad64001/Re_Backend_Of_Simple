@@ -17,7 +17,7 @@ namespace Re_Backend.Tests
         private readonly ITestDbService testDbService;
         private readonly IUserService userService;
         private readonly ITestOutputHelper testOutput;
-
+        private readonly ITestRedisCacheService testRedisCache;
         public UnitTest1(ITestOutputHelper testOutput)
         {
             var builder = new ContainerBuilder();
@@ -40,7 +40,7 @@ namespace Re_Backend.Tests
             var jsonSettings = serviceProvider.GetRequiredService<JsonSettings>();
 
             // 使用 AutofacConfig 类的 ConfigureContainer 方法来注册服务
-            AutofacConfig.ConfigureContainer(builder, "Re_Backend.Domain");
+            AutofacConfig.ConfigureContainer(builder,configuration, "Re_Backend.Domain");
 
             // 构建容器
             var container = builder.Build();
@@ -49,6 +49,7 @@ namespace Re_Backend.Tests
             testService = container.Resolve<ITestService>();
             testDbService = container.Resolve<ITestDbService>();
             userService = container.Resolve<IUserService>();
+            testRedisCache = container.Resolve<ITestRedisCacheService>();
             
             this.testOutput = testOutput;
         }
@@ -108,5 +109,15 @@ namespace Re_Backend.Tests
             Assert.NotNull(result);
         }
 
-     }
+        [Fact]
+        public async Task TestRedisCache()
+        {
+            // Act
+            var result = await testRedisCache.UseCacheAsync();
+
+            // Assert
+            Assert.NotNull(result);
+            testOutput.WriteLine(result);
+        }
+    }
 }
