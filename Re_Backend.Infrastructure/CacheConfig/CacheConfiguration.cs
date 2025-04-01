@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Re_Backend.Common.Cache;
 
 namespace Re_Backend.Infrastructure.CacheConfig
@@ -32,7 +33,9 @@ namespace Re_Backend.Infrastructure.CacheConfig
             else
             {
                 // 注册内存缓存
-                containerBuilder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();
+                containerBuilder.Register(c => new MemoryCache(Options.Create(new MemoryCacheOptions())))
+                                .As<IMemoryCache>()
+                                .SingleInstance();
                 containerBuilder.RegisterType<MemoryCacheService>().As<ICacheService>().SingleInstance();
             }
         }
