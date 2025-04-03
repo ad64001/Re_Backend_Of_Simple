@@ -13,6 +13,7 @@ using Re_Backend.Domain.UserDomain.IRespository;
 
 namespace Re_Backend.Tests
 {
+    //夹具一式
     public class TestFixture : IDisposable
     {
         public IContainer Container { get; private set; }

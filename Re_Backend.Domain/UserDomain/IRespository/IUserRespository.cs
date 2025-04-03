@@ -12,5 +12,7 @@ namespace Re_Backend.Domain.UserDomain.IRespository
         public Task<int> AddUser(User user);
         public Task<List<User>> QueryAllUser();
         public Task<User> QueryUserById(int id);
+        public Task<bool> UpdateUser(User user);
+        public Task<bool> DeleteUser(int id);
     }
 }

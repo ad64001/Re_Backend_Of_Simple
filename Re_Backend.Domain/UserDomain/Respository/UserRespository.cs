@@ -1,4 +1,5 @@
-﻿using Re_Backend.Common.Attributes;
+﻿using Re_Backend.Common;
+using Re_Backend.Common.Attributes;
 using Re_Backend.Common.SqlConfig;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.IRespository;
@@ -27,6 +28,13 @@ namespace Re_Backend.Domain.UserDomain.Respository
             return byid;
         }
 
+        public async Task<bool> DeleteUser(int id)
+        {
+            var _user = await _db.Db.Queryable<User>().InSingleAsync(id);
+            _user.IsDeleted = true;
+            return await _db.Db.Updateable<User>(_user).ExecuteCommandAsync() > 0;
+        }
+
         public async Task<List<User>> QueryAllUser()
         {
             List<User> list = await _db.Db.Queryable<User>().ToListAsync();
@@ -35,10 +43,18 @@ namespace Re_Backend.Domain.UserDomain.Respository
 
         public async Task<User> QueryUserById(int id)
         {
-            User user = await _db.Db.Queryable<User>().InSingleAsync(id);
+            var user = await _db.Db.Queryable<User>().InSingleAsync(id);
             return user;
         }
 
+        [UseTran]
+        public async Task<bool> UpdateUser(User user)
+        {
+            var _user = await _db.Db.Queryable<User>().InSingleAsync(user.Id);
+            GlobalEntityUpdater.UpdateEntity(_user,user);
+            return await _db.Db.Updateable<User>(_user).ExecuteCommandAsync() > 0;
+        }
 
+        
     }
 }

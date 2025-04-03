@@ -1,4 +1,5 @@
-﻿using Re_Backend.Domain.UserDomain.Entity;
+﻿using Re_Backend.Domain;
+using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.IRespository;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,30 @@ namespace Re_Backend.Tests
         {
             var user = await _userRespository.QueryUserById(1);
             _testOutput.WriteLine($"User: {user.UserName}, ID: {user.Id}");
+        }
+
+        [Fact]
+        public async Task TestUpdateUser()
+        {
+            User testUser = new User
+            {
+                Id=1,
+                UserName = "TestUser222",
+                Password = null,
+                Email = null,
+                CreateTime = DateTime.Now,
+                LastLoginTime = DateTime.Now.AddDays(-1),
+                IsDeleted = false,
+                RoleId = 1
+            };
+
+            _testOutput.WriteLine($"User updated with bool: {await _userRespository.UpdateUser(testUser)}");
+        }
+
+        [Fact]
+        public async Task TestDeleteUser()
+        {
+            _testOutput.WriteLine($"User updated with bool: {await _userRespository.DeleteUser(1)}");
         }
     }
 }
