@@ -8,34 +8,34 @@ using System.Threading.Tasks;
 
 namespace Re_Backend.Domain
 {
-    public interface IUserService
+    public interface ITestUserService
     {
-        void AddUser(User user);
-        List<User> GetAllUsers();
+        void AddUser(TestUser user);
+        List<TestUser> GetAllUsers();
         void DoSomethingWithTransaction();
         DbContext GetDbContext();
     }
 
     [Injectable(IsSingleton = true)]
-    public class UserService : IUserService
+    public class TestUserService : ITestUserService
     {
         private readonly DbContext _dbContext;
 
         public DbContext DbContext => _dbContext;
 
-        public UserService(DbContext dbContext)
+        public TestUserService(DbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public void AddUser(User user)
+        public void AddUser(TestUser user)
         {
             DbContext.Db.Insertable(user).ExecuteCommand();
         }
 
-        public List<User> GetAllUsers()
+        public List<TestUser> GetAllUsers()
         {
-            return DbContext.Db.Queryable<User>().ToList();
+            return DbContext.Db.Queryable<TestUser>().ToList();
         }
 
         [UseTran]
@@ -44,7 +44,7 @@ namespace Re_Backend.Domain
             // 模拟一些数据库操作
             //DbContext.Db.Insertable(new User { Name = "User2" , Age = 33}).ExecuteCommand();
             // 场景1：插入第一条数据后抛出异常（验证插入回滚）
-            DbContext.Db.Insertable(new User { Name = "User36", Age = 10 }).ExecuteCommand();
+            DbContext.Db.Insertable(new TestUser { Name = "User36", Age = 10 }).ExecuteCommand();
             DoSomethingWithTransaction2();
             //throw new DivideByZeroException("模拟第一个异常");
             //throw new DivideByZeroException("模拟第一个异常");
@@ -57,7 +57,7 @@ namespace Re_Backend.Domain
             // 模拟一些数据库操作
             //DbContext.Db.Insertable(new User { Name = "User2" , Age = 33}).ExecuteCommand();
             // 场景1：插入第一条数据后抛出异常（验证插入回滚）
-            DbContext.Db.Insertable(new User { Name = "User39", Age = 37 }).ExecuteCommand();
+            DbContext.Db.Insertable(new TestUser { Name = "User39", Age = 37 }).ExecuteCommand();
             
 
         }

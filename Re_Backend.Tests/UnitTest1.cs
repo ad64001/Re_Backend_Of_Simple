@@ -15,7 +15,7 @@ namespace Re_Backend.Tests
     {
         private readonly ITestService testService;
         private readonly ITestDbService testDbService;
-        private readonly IUserService userService;
+        private readonly ITestUserService userService;
         private readonly ITestOutputHelper testOutput;
         private readonly ITestRedisCacheService testRedisCache;
         public UnitTest1(ITestOutputHelper testOutput)
@@ -48,7 +48,7 @@ namespace Re_Backend.Tests
             // 从容器中解析出 ITestService 实例
             testService = container.Resolve<ITestService>();
             testDbService = container.Resolve<ITestDbService>();
-            userService = container.Resolve<IUserService>();
+            userService = container.Resolve<ITestUserService>();
             testRedisCache = container.Resolve<ITestRedisCacheService>();
             
             this.testOutput = testOutput;
@@ -57,8 +57,6 @@ namespace Re_Backend.Tests
         [Fact]
         public void Test1()
         {
-
-
             // 调用 DoSomething 方法
             testOutput.WriteLine(testService.DoSomething());
             testOutput.WriteLine(testDbService.DoSomething());
@@ -70,7 +68,7 @@ namespace Re_Backend.Tests
         [Fact]
         public void TestAdd()
         {
-            var user = new User
+            var user = new TestUser
             {
                 Name = "Test User",
                 Age = 25
