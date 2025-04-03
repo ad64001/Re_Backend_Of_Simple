@@ -14,9 +14,9 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
-    private readonly ITestService testService;
+    private readonly ITestDbService testService;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger,ITestService testService)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, ITestDbService testService)
     {
         _logger = logger;
         this.testService = testService;

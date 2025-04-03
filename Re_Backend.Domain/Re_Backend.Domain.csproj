@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Re_Backend.Infrastructure\Re_Backend.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UserDomain\IServices\" />
+  </ItemGroup>
+
 </Project>
