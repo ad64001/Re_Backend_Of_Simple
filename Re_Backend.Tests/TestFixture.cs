@@ -4,12 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Re_Backend.Common.AutoConfiguration;
 using Re_Backend.Common;
 using Re_Backend.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Re_Backend.Domain.UserDomain.IRespository;
+using Re_Backend.Domain.UserDomain.Respository;
 
 namespace Re_Backend.Tests
 {
@@ -22,6 +18,7 @@ namespace Re_Backend.Tests
         public ITestUserService UserService { get; private set; }
         public ITestRedisCacheService TestRedisCache { get; private set; }
         public IUserRespository UserRespository { get; private set; }
+        public IRolesRespository RoleRespository { get; private set; }
 
         public TestFixture()
         {
@@ -56,6 +53,7 @@ namespace Re_Backend.Tests
             UserService = Container.Resolve<ITestUserService>();
             TestRedisCache = Container.Resolve<ITestRedisCacheService>();
             UserRespository = Container.Resolve<IUserRespository>();
+            RoleRespository = Container.Resolve<IRolesRespository>();
         }
 
         public void Dispose()

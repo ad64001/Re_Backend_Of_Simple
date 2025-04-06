@@ -1,6 +1,12 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Re_Backend.Common;
 using Re_Backend.Common.SqlConfig;
 using Re_Backend.Domain;
+using Re_Backend.Domain.UserDomain.Entity;
+using Re_Backend.Domain.UserDomain.IRespository;
+using Re_Backend.Domain.UserDomain.IServices;
+using System.Threading.Tasks;
 
 namespace Re_Backend.Api.Controllers;
 
@@ -14,17 +20,32 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
-    private readonly ITestDbService testService;
+    private readonly ILoginService _loginService;
+    private readonly IJwtService _jwtService;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, ITestDbService testService)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger,ILoginService loginService,IJwtService jwtService)
     {
         _logger = logger;
-        this.testService = testService;
+        _loginService = loginService;
+        _jwtService = jwtService;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
     public string Get()
     {
-        return testService.DoSomething();
+        return "Hello World";
     }
+
+    [HttpGet("/login")]
+    public async Task<IActionResult> LoginT(string? userName,string? password,string? email)
+    {
+        User user = new User { UserName = userName, Password = password ,Email = email };
+        var userName2 = await _loginService.Login(user);
+        // 这里添加你的用户验证逻辑
+        // 假设验证通过，返回token
+        var token = _jwtService.GenerateToken(userName2);
+        return Ok(new { token });
+    }
+
+    
 }

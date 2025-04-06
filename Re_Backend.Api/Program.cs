@@ -1,8 +1,11 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Re_Backend.Common;
 using Re_Backend.Common.AutoConfiguration;
 using Re_Backend.Infrastructure;
+using System.Text;
 
 namespace Re_Backend.Api
 {
@@ -21,7 +24,33 @@ namespace Re_Backend.Api
             //JsonSetting配置
             // 配置
             builder.Services.AddSingleton(new JsonSettings(builder.Configuration));
-            
+
+
+            // 添加 JWT 验证服务
+            builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+
+            // 添加认证服务
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidAudience = jwtSettings.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(jwtSettings.Key))
+                };
+            });
             // Add services to the container.
 
             builder.Services.AddControllers();

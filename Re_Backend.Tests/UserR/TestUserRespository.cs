@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit.Abstractions;
 
-namespace Re_Backend.Tests
+namespace Re_Backend.Tests.UserR
 {
     public class TestUserRespository : IClassFixture<TestFixture>
     {
@@ -28,6 +28,7 @@ namespace Re_Backend.Tests
             {
                 UserName = "TestUser",
                 Password = "TestPassword123",
+                NickName = "TestNickName",
                 Email = "testuser@example.com",
                 CreateTime = DateTime.Now,
                 LastLoginTime = DateTime.Now.AddDays(-1),

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Re_Backend.Domain.UserDomain.IRespository
+namespace Re_Backend.Common
 {
-    public interface IRoleRespository
+    public interface IJwtService
     {
-
+        string GenerateToken(string userId);
     }
 }

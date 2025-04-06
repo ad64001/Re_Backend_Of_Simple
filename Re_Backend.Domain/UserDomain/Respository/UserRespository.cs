@@ -32,6 +32,7 @@ namespace Re_Backend.Domain.UserDomain.Respository
         {
             var _user = await _db.Db.Queryable<User>().InSingleAsync(id);
             _user.IsDeleted = true;
+            _user.UserName = "DELETE_" + _user.UserName;
             return await _db.Db.Updateable<User>(_user).ExecuteCommandAsync() > 0;
         }
 
@@ -45,6 +46,32 @@ namespace Re_Backend.Domain.UserDomain.Respository
         {
             var user = await _db.Db.Queryable<User>().InSingleAsync(id);
             return user;
+        }
+
+        public async Task<User> QueryUserByUser(User user)
+        {
+            var query = _db.Db.Queryable<User>();
+
+            // 根据 User 对象的非空属性进行过滤
+            if (!string.IsNullOrEmpty(user.UserName))
+            {
+                query = query.Where(u => u.UserName == user.UserName);
+            }
+            if (!string.IsNullOrEmpty(user.Password))
+            {
+                query = query.Where(u => u.Password == user.Password);
+            }
+            if (!string.IsNullOrEmpty(user.Email))
+            {
+                query = query.Where(u => u.Email == user.Email);
+            }
+            if (user.RoleId > 0)
+            {
+                query = query.Where(u => u.RoleId == user.RoleId);
+            }
+            // 可以根据需要添加更多属性的过滤条件
+
+            return await query.FirstAsync();
         }
 
         [UseTran]

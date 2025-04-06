@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="LoginApplication\Services\" />
+    <ProjectReference Include="..\Re_Backend.Domain\Re_Backend.Domain.csproj" />
   </ItemGroup>
 
 </Project>
