@@ -8,7 +8,7 @@ using Re_Backend.Domain.UserDomain.IRespository;
 using Re_Backend.Domain.UserDomain.IServices;
 using System.Threading.Tasks;
 
-namespace Re_Backend.Api.Controllers;
+namespace Re_Backend.Api.Controllers.Other;
 
 [ApiController]
 [Route("[controller]")]

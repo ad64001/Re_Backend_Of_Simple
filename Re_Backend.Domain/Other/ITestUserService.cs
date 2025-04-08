@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Re_Backend.Domain
+namespace Re_Backend.Domain.Other
 {
     public interface ITestUserService
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace Re_Backend.Api.Controllers
+namespace Re_Backend.Api.Controllers.Other
 {
     [Authorize]
     [Route("api/[controller]")]

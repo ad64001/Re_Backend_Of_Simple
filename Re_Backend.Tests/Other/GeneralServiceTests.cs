@@ -1,4 +1,4 @@
-﻿using Re_Backend.Domain;
+﻿using Re_Backend.Domain.Other;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit.Abstractions;
 
-namespace Re_Backend.Tests
+namespace Re_Backend.Tests.Other
 {
     public class GeneralServiceTests : IClassFixture<TestFixture>
     {
@@ -17,9 +17,9 @@ namespace Re_Backend.Tests
 
         public GeneralServiceTests(TestFixture fixture, ITestOutputHelper testOutput)
         {
-            this.testService = fixture.TestService;
-            this.testDbService = fixture.TestDbService;
-            this.testRedisCache = fixture.TestRedisCache;
+            testService = fixture.TestService;
+            testDbService = fixture.TestDbService;
+            testRedisCache = fixture.TestRedisCache;
             this.testOutput = testOutput;
         }
 

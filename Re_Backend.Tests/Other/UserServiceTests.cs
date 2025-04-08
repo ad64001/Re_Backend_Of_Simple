@@ -1,4 +1,5 @@
 ﻿using Re_Backend.Domain;
+using Re_Backend.Domain.Other;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit.Abstractions;
 
-namespace Re_Backend.Tests
+namespace Re_Backend.Tests.Other
 {
     public class UserServiceTests : IClassFixture<TestFixture>
     {
@@ -15,7 +16,7 @@ namespace Re_Backend.Tests
 
         public UserServiceTests(TestFixture fixture, ITestOutputHelper testOutput)
         {
-            this.userService = fixture.UserService;
+            userService = fixture.UserService;
             this.testOutput = testOutput;
         }
 

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit.Abstractions;
 
-namespace Re_Backend.Tests
+namespace Re_Backend.Tests.Other
 {
     public class JsonSettingsTests
     {
