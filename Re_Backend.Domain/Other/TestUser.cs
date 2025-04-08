@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Re_Backend.Domain.Other
 {
-    [SugarTable("TestUser")]
+    //[SugarTable("TestUser")]
     public class TestUser
     {
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]

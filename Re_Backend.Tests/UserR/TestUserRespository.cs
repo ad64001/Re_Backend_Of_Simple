@@ -26,9 +26,9 @@ namespace Re_Backend.Tests.UserR
         {
             User testUser = new User
             {
-                UserName = "TestUser",
-                Password = "TestPassword123",
-                NickName = "TestNickName",
+                UserName = "VerySuperExtrordinarySuperAdmin",
+                Password = "root",
+                NickName = "VerySuperExtrordinarySuperAdminNameIsAd64",
                 Email = "testuser@example.com",
                 CreateTime = DateTime.Now,
                 LastLoginTime = DateTime.Now.AddDays(-1),

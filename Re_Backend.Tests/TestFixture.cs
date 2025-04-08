@@ -6,6 +6,7 @@ using Re_Backend.Common;
 using Re_Backend.Domain.UserDomain.IRespository;
 using Re_Backend.Domain.UserDomain.Respository;
 using Re_Backend.Domain.Other;
+using Re_Backend.Domain.UserDomain.IServices;
 
 namespace Re_Backend.Tests
 {
@@ -19,6 +20,7 @@ namespace Re_Backend.Tests
         public ITestRedisCacheService TestRedisCache { get; private set; }
         public IUserRespository UserRespository { get; private set; }
         public IRolesRespository RoleRespository { get; private set; }
+        public ILoginService LoginService { get; private set; }
 
         public TestFixture()
         {
@@ -42,7 +44,7 @@ namespace Re_Backend.Tests
             var jsonSettings = serviceProvider.GetRequiredService<JsonSettings>();
 
             // Register services using AutofacConfig
-            AutofacConfig.ConfigureContainer(builder, configuration, "Re_Backend.Domain");
+            AutofacConfig.ConfigureContainer(builder, configuration, "Re_Backend.Domain","Re_Backend.Application");
 
             // Build the container
             Container = builder.Build();
@@ -54,6 +56,7 @@ namespace Re_Backend.Tests
             TestRedisCache = Container.Resolve<ITestRedisCacheService>();
             UserRespository = Container.Resolve<IUserRespository>();
             RoleRespository = Container.Resolve<IRolesRespository>();
+            LoginService = Container.Resolve<ILoginService>();
         }
 
         public void Dispose()

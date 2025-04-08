@@ -26,8 +26,8 @@ namespace Re_Backend.Tests.UserR
         {
             Role testRole = new Role
             {
-                Name = "Test Role",
-                Weight = 10086
+                Name = "User",
+                Weight = 3
             };
 
             int id = await _roleRespository.AddRole(testRole);

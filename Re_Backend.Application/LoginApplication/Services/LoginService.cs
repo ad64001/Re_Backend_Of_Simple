@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Re_Backend.Common;
 using Re_Backend.Common.Attributes;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.IRespository;
@@ -40,6 +41,37 @@ namespace Re_Backend.Application.LoginApplication.Services
                 throw;
             }
             
+        }
+
+        [UseTran]
+        public async Task<string> Register(User user)
+        {
+            User newUser = new User();
+            if (user.Email == null)
+            {
+                return "Email can't null";
+            }
+            if (user.UserName == null)
+            {
+                return "username can't null";
+            }
+            if (user.Password.Length < 7)
+            {
+                return "passwd length error";
+            }
+            if (user.NickName == null)
+            {
+                user.NickName = "Te_"+ AESAlgorithm.EncryptString(user.UserName);
+            }
+
+            GlobalEntityUpdater.UpdateEntity(newUser, user);
+            newUser.CreateTime = DateTime.Now;
+            newUser.LastLoginTime = DateTime.Now.AddDays(-1);
+            newUser.Password = AESAlgorithm.EncryptString(user.Password);
+            newUser.IsDeleted = false;
+            newUser.RoleId = 3;
+            int result = await _userRespository.AddUser(newUser);
+            return result.ToString();
         }
     }
 }
