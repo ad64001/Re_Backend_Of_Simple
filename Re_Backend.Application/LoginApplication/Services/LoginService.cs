@@ -17,22 +17,36 @@ namespace Re_Backend.Application.LoginApplication.Services
     {
         private readonly IUserRespository _userRespository;
         private readonly IRolesRespository _rolesRespository;
+        private readonly IJwtService _jwtService;
 
-        public LoginService(IUserRespository userRespository,IRolesRespository rolesRespository)
+        public LoginService(IUserRespository userRespository,IRolesRespository rolesRespository,IJwtService jwtService)
         {
             _userRespository = userRespository;
             _rolesRespository = rolesRespository;
+            _jwtService = jwtService;
         }
         public async Task<string> Login(User user)
         {
             try
             {
-                var loginuser = await _userRespository.QueryUserByUser(user);
+                User loginuser = new User();
+                user.Password = AESAlgorithm.EncryptString(user.Password);
+                var loginusers = await _userRespository.QueryAllUser();
+                if (user.Email != null)
+                {
+                    loginuser = loginusers.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
+                }
+                else if (user.UserName != null)
+                {
+                    loginuser = loginusers.Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
+
+                }
+
                 if (loginuser == null)
                 {
                     return "UserNotInDatabase";
                 }
-                return loginuser.UserName.ToString();
+                return _jwtService.GenerateToken(loginuser.Id.ToString());
 
             }
             catch (Exception)

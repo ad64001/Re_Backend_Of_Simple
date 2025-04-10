@@ -31,5 +31,13 @@ namespace Re_Backend.Api.Controllers
             string ressult = await _loginService.Register(user);
             return Ok("Success");
         }
+
+        [HttpGet("/login")]
+        public async Task<IActionResult> Login(string? email,string passwd,string? username)
+        {
+            User user = new User() { Email = email, Password = passwd ,UserName = username };
+            return Ok(await _loginService.Login(user));
+
+        }
     }
 }

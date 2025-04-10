@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Re_Backend.Api.Controllers.Other;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
@@ -36,16 +36,16 @@ public class WeatherForecastController : ControllerBase
         return "Hello World";
     }
 
-    [HttpGet("/login")]
-    public async Task<IActionResult> LoginT(string? userName,string? password,string? email)
-    {
-        User user = new User { UserName = userName, Password = password ,Email = email };
-        var userName2 = await _loginService.Login(user);
-        // 这里添加你的用户验证逻辑
-        // 假设验证通过，返回token
-        var token = _jwtService.GenerateToken(userName2);
-        return Ok(new { token });
-    }
+    //[HttpGet("/login")]
+    //public async Task<IActionResult> LoginT(string? userName,string? password,string? email)
+    //{
+    //    User user = new User { UserName = userName, Password = password ,Email = email };
+    //    var userName2 = await _loginService.Login(user);
+    //    // 这里添加你的用户验证逻辑
+    //    // 假设验证通过，返回token
+    //    var token = _jwtService.GenerateToken(userName2);
+    //    return Ok(new { token });
+    //}
 
     
 }
