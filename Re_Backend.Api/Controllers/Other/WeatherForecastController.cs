@@ -31,9 +31,9 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
-    public string Get()
+    public IActionResult Get()
     {
-        return "Hello World";
+        return Ok(new { SSS = "HelloWorld" });
     }
 
     //[HttpGet("/login")]

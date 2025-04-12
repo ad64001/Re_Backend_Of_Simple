@@ -67,6 +67,9 @@ namespace Re_Backend.Api
                 app.UseSwaggerUI();
             }
 
+            // 使用跨域中间件
+            app.UseCorsMiddleware();
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
