@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Re_Backend.Common;
+using Re_Backend.Common.enumscommon;
 using Re_Backend.Common.SqlConfig;
 using Re_Backend.Domain;
 using Re_Backend.Domain.UserDomain.Entity;
@@ -33,7 +34,7 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public IActionResult Get()
     {
-        return Ok(new { SSS = "HelloWorld" });
+        return Ok(Ok(new Result<Object> { Code = ResultEnum.Success, Data = new { Message = "³É¹¦" } }));
     }
 
     //[HttpGet("/login")]

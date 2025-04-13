@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Re_Backend.Common;
+using Re_Backend.Common.enumscommon;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.Entity.Vo;
 using Re_Backend.Domain.UserDomain.IServices;
@@ -36,7 +37,7 @@ namespace Re_Backend.Api.Controllers
                 NickName=nickname
             };
             string ressult = await _loginService.Register(user);
-            return Ok("Success");
+            return Ok(new Result<Object> { Code = ResultEnum.Success, Data = null });
         }
 
         [HttpGet("/login")]
@@ -50,9 +51,13 @@ namespace Re_Backend.Api.Controllers
                 UserRoleVo userRoleVo = await _userService.GetUserInfo(int.Parse(userId));
                 userRoleVo.UserV.LastLoginTime = DateTime.Now.AddDays(-1);
                 await _userService.UpdateUserInfo(userRoleVo.UserV);
+                return Ok(new Result<Object> { Code = ResultEnum.Success, Data = new { Token = token } });
             }
-            
-            return Ok(token);
+            else
+            {
+                return Ok(new Result<Object> { Code = ResultEnum.Fail,Data = null });
+            }
+
 
         }
     }
