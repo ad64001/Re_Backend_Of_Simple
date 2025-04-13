@@ -26,7 +26,7 @@ namespace Re_Backend.Api.Controllers
             _jwtService = jwtService;
         }
 
-        [HttpPost("/register")]
+        [HttpPost]
         public async Task<IActionResult> Register(string email,string passwd,string username,string? nickname)
         {
             User user = new User()
@@ -40,7 +40,7 @@ namespace Re_Backend.Api.Controllers
             return Ok(new Result<Object> { Code = ResultEnum.Success, Data = null });
         }
 
-        [HttpGet("/login")]
+        [HttpGet]
         public async Task<IActionResult> Login(string? email,string passwd,string? username)
         {
             User user = new User() { Email = email, Password = passwd ,UserName = username };
