@@ -31,11 +31,11 @@ namespace Re_Backend.Application.LoginApplication.Services
                 User loginuser = new User();
                 user.Password = AESAlgorithm.EncryptString(user.Password);
                 var loginusers = await _userRespository.QueryAllUser();
-                if (user.Email != null)
+                if (!string.IsNullOrEmpty(user.Email) && user.Email != "null")
                 {
                     loginuser = loginusers.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
                 }
-                else if (user.UserName != null)
+                else if (!string.IsNullOrEmpty(user.UserName) && user.UserName != "null")
                 {
                     loginuser = loginusers.Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
 
