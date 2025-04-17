@@ -27,16 +27,16 @@ namespace Re_Backend.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(string email,string passwd,string username,string? nickname)
+        public async Task<IActionResult> Register([FromBody]User user)
         {
-            User user = new User()
+            User user2 = new User()
             {
-                Email=email,
-                UserName=username,
-                Password=passwd,
-                NickName=nickname
+                Email=user.Email,
+                UserName=user.UserName,
+                Password=user.Password,
+                NickName=user.NickName
             };
-            string ressult = await _loginService.Register(user);
+            string ressult = await _loginService.Register(user2);
             return Ok(new Result<Object> { Code = ResultEnum.Success, Data = null });
         }
 

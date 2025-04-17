@@ -72,7 +72,7 @@ namespace Re_Backend.Application.LoginApplication.Services
             {
                 return "passwd length error";
             }
-            if (user.NickName == null)
+            if (user.NickName == null||string.IsNullOrEmpty(user.NickName))
             {
                 user.NickName = "Te_"+ AESAlgorithm.EncryptString(user.UserName);
             }

@@ -32,7 +32,7 @@ namespace Re_Backend.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateUserInfo(User user)
+        public async Task<IActionResult> UpdateUserInfo([FromBody]User user)
         {
             await _userService.UpdateUserInfo(user);
             return Ok(new Result<Object> { Code = ResultEnum.Success, Data = null });
