@@ -81,5 +81,15 @@ namespace Re_Backend.Tests.UserR
         {
             _testOutput.WriteLine($"User updated with bool: {await _userRespository.DeleteUser(1)}");
         }
+
+        [Fact]
+        public async Task TestPage()
+        {
+            List<User> users = await _userRespository.QueryUserPages(5,1);
+            foreach (var item in users)
+            {
+                _testOutput.WriteLine($"User: {item.UserName}, ID: {item.Id}");
+            }
+        }
     }
 }

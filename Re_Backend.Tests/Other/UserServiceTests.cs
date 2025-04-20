@@ -16,7 +16,7 @@ namespace Re_Backend.Tests.Other
 
         public UserServiceTests(TestFixture fixture, ITestOutputHelper testOutput)
         {
-            userService = fixture.UserService;
+            userService = fixture.TestUserService;
             this.testOutput = testOutput;
         }
 
@@ -54,5 +54,6 @@ namespace Re_Backend.Tests.Other
             var result = userService.GetDbContext().Db.Queryable<dynamic>();
             Assert.NotNull(result);
         }
+
     }
 }

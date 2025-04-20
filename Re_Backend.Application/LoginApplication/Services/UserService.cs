@@ -23,6 +23,12 @@ namespace Re_Backend.Application.LoginApplication.Services
             _rolesRespository = rolesRespository;
         }
 
+        public async Task<int> GetUserCount()
+        {
+            List<User> users = await _userRespository.QueryAllUser();
+            return users.Count;
+        }
+
         public async Task<UserRoleVo> GetUserInfo(int id)
         {
             var userResult = await _userRespository.QueryUserById(id);
@@ -49,6 +55,11 @@ namespace Re_Backend.Application.LoginApplication.Services
             {
                 return new UserRoleVo();
             }
+        }
+
+        public async Task<List<User>> GetUserPages(int page, int size)
+        {
+            return await _userRespository.QueryUserPages(page, size);
         }
 
         public async Task<bool> UpdateUserInfo(User user)

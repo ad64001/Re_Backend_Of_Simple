@@ -48,6 +48,12 @@ namespace Re_Backend.Domain.UserDomain.Respository
             return user;
         }
 
+        public async Task<List<User>> QueryUserPages(int size, int page)
+        {
+            List<User> list = await _db.Db.Queryable<User>().ToPageListAsync(page,size);
+            return list;
+        }
+
         [UseTran]
         public async Task<bool> UpdateUser(User user)
         {

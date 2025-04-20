@@ -38,6 +38,13 @@ namespace Re_Backend.Api.Controllers
             return Ok(new Result<Object> { Code = ResultEnum.Success, Data = null });
         }
 
+        [HttpGet("/api/UsersPage")]
+        public async Task<IActionResult> GetUserPage(int size,int pageNumb)
+        {
+            var users = await _userService.GetUserPages(size, pageNumb);
+            var count = await _userService.GetUserCount();
+            return Ok(new Result<Object> { Code = ResultEnum.Success, Data = new { Users = users, Count = count } });
+        }
 
     }
 }

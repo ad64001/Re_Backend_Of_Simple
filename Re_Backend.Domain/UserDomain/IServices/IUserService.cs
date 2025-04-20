@@ -12,5 +12,7 @@ namespace Re_Backend.Domain.UserDomain.IServices
     {
         public Task<UserRoleVo> GetUserInfo(int id);
         public Task<bool> UpdateUserInfo(User user);
+        public Task<List<User>> GetUserPages(int page, int size);
+        public Task<int> GetUserCount();
     }
 }

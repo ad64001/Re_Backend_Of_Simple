@@ -41,6 +41,11 @@ namespace Re_Backend.Application.LoginApplication.Services
 
                 }
 
+                if (loginuser.IsDeleted)
+                {
+                    return "NotUser"
+                }
+
                 if (loginuser == null)
                 {
                     return "UserNotInDatabase";
