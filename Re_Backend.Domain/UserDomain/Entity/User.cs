@@ -14,7 +14,7 @@ namespace Re_Backend.Domain.UserDomain.Entity
         public int Id { get; set; }
 
         [SugarColumn(Length = 50)]
-        public string? UserName { get; set; }
+        public string UserName { get; set; }
         public string? NickName { get; set; }
         public string Password { get; set; }
 

@@ -14,5 +14,6 @@ namespace Re_Backend.Domain.UserDomain.IServices
         public Task<bool> UpdateUserInfo(User user);
         public Task<List<User>> GetUserPages(int page, int size);
         public Task<int> GetUserCount();
+        public Task DeleteByid(int id);
     }
 }

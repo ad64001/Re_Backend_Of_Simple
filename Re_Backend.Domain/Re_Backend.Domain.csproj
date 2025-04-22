@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UserDomain\Entity\新文件夹\**" />
+    <EmbeddedResource Remove="UserDomain\Entity\新文件夹\**" />
+    <None Remove="UserDomain\Entity\新文件夹\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="7.1.0" />
   </ItemGroup>
 

@@ -24,6 +24,17 @@ namespace Re_Backend.Application.LoginApplication.Services
             _rolesRespository = rolesRespository;
         }
 
+        public async Task DeleteByid(int id)
+        {
+            var userResult = await _userRespository.QueryUserById(id);
+
+            if (!userResult.IsDeleted)
+            {
+                await _userRespository.DeleteUser(id);
+            }
+            
+        }
+
         public async Task<int> GetUserCount()
         {
             List<User> users = await _userRespository.QueryAllUser();
