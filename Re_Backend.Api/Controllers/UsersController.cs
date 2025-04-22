@@ -46,5 +46,11 @@ namespace Re_Backend.Api.Controllers
             return Ok(new Result<Object> { Code = ResultEnum.Success, Data = new { Users = users, Count = count } });
         }
 
+        [HttpGet("/api/UserInfo")]
+        public async Task<IActionResult> GetUserInfoById(int id)
+        {
+            UserRoleVo userRole = await _userService.GetUserInfo(id);
+            return Ok(new Result<UserRoleVo> { Code = ResultEnum.Success, Data = userRole });
+        }
     }
 }

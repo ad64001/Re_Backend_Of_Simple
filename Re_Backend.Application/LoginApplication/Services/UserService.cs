@@ -1,4 +1,5 @@
-﻿using Re_Backend.Common.Attributes;
+﻿using Re_Backend.Common;
+using Re_Backend.Common.Attributes;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.Entity.Vo;
 using Re_Backend.Domain.UserDomain.IRespository;
@@ -34,6 +35,7 @@ namespace Re_Backend.Application.LoginApplication.Services
             var userResult = await _userRespository.QueryUserById(id);
             if (userResult != null)
             {
+                userResult.Password = AESAlgorithm.DecryptString(userResult.Password);
                 Role roleResult = await _rolesRespository.QueryRoleById(userResult.RoleId);
                 if (roleResult != null)
                 {
@@ -64,6 +66,15 @@ namespace Re_Backend.Application.LoginApplication.Services
 
         public async Task<bool> UpdateUserInfo(User user)
         {
+
+            if (!string.IsNullOrEmpty(user.Password) && user.Password != "null")
+            {
+                user.Password = AESAlgorithm.EncryptString(user.Password);
+            }
+
+            User userResult = await _userRespository.QueryUserById(user.Id);
+            user.CreateTime = userResult.CreateTime;
+            user.LastLoginTime = userResult.LastLoginTime;
             return await _userRespository.UpdateUser(user);
         }
     }

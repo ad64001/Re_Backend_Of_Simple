@@ -43,7 +43,7 @@ namespace Re_Backend.Application.LoginApplication.Services
 
                 if (loginuser.IsDeleted)
                 {
-                    return "NotUser"
+                    return "NotUser";
                 }
 
                 if (loginuser == null)

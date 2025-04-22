@@ -34,7 +34,7 @@ namespace Re_Backend.Infrastructure
                 new Claim(ClaimTypes.NameIdentifier, userId)
                 // 可以添加更多声明
             }),
-                Expires = DateTime.UtcNow.AddHours(1), // 设置过期时间
+                Expires = DateTime.UtcNow.AddDays(7), // 设置过期时间
                 Issuer = _jwtSettings.Issuer,
                 Audience = _jwtSettings.Audience,
                 SigningCredentials = new SigningCredentials(
