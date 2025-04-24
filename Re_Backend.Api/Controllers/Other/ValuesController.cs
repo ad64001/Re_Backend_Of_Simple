@@ -5,7 +5,7 @@ using System.Security.Claims;
 
 namespace Re_Backend.Api.Controllers.Other
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase

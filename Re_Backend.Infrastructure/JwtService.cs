@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using Re_Backend.Common;
 using Re_Backend.Common.Attributes;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -22,7 +23,7 @@ namespace Re_Backend.Infrastructure
             _jwtSettings = jwtSettings.Value;
         }
 
-        public string GenerateToken(string userId)
+        public string GenerateToken(string userId,string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
@@ -31,7 +32,8 @@ namespace Re_Backend.Infrastructure
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                new Claim(ClaimTypes.NameIdentifier, userId)
+                new Claim(ClaimTypes.NameIdentifier, userId),
+                new Claim(ClaimTypes.Role,role)
                 // 可以添加更多声明
             }),
                 Expires = DateTime.UtcNow.AddDays(7), // 设置过期时间

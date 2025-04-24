@@ -10,7 +10,7 @@ using Re_Backend.Domain.UserDomain.Entity.Dto;
 
 namespace Re_Backend.Api.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase

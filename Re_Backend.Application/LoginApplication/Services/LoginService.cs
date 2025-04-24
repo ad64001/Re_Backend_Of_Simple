@@ -50,7 +50,10 @@ namespace Re_Backend.Application.LoginApplication.Services
                 {
                     return "UserNotInDatabase";
                 }
-                return _jwtService.GenerateToken(loginuser.Id.ToString());
+                // 获取用户角色
+                Role role = await _rolesRespository.QueryRoleById(loginuser.RoleId);
+                string roleName = role?.Name;
+                return _jwtService.GenerateToken(loginuser.Id.ToString(),roleName);
 
             }
             catch (Exception)
