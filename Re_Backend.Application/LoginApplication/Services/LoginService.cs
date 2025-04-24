@@ -55,7 +55,7 @@ namespace Re_Backend.Application.LoginApplication.Services
             }
             catch (Exception)
             {
-
+                return "NotUser";
                 throw;
             }
             

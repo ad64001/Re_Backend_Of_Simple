@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Re_Backend.Application.LoginApplication.Services
+namespace Re_Backend.Application.UserAplication
 {
     [Injectable]
     public class RoleService : IRoleService

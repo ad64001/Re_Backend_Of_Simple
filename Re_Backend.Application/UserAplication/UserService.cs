@@ -1,6 +1,7 @@
 ﻿using Re_Backend.Common;
 using Re_Backend.Common.Attributes;
 using Re_Backend.Domain.UserDomain.Entity;
+using Re_Backend.Domain.UserDomain.Entity.Dto;
 using Re_Backend.Domain.UserDomain.Entity.Vo;
 using Re_Backend.Domain.UserDomain.IRespository;
 using Re_Backend.Domain.UserDomain.IServices;
@@ -10,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Re_Backend.Application.LoginApplication.Services
+namespace Re_Backend.Application.UserAplication
 {
     [Injectable]
     public class UserService: IUserService
@@ -35,7 +36,7 @@ namespace Re_Backend.Application.LoginApplication.Services
             
         }
 
-        public async Task<int> GetUserCount()
+        private async Task<int> GetUserCount()
         {
             List<User> users = await _userRespository.QueryAllUser();
             return users.Count;
@@ -70,9 +71,18 @@ namespace Re_Backend.Application.LoginApplication.Services
             }
         }
 
-        public async Task<List<User>> GetUserPages(int page, int size)
+        public async Task<PageResult<User>> GetUserPages(int page, int size)
         {
-            return await _userRespository.QueryUserPages(page, size);
+            List<User> users = await _userRespository.QueryUserPages(page, size);
+            var count = await GetUserCount();
+            PageResult<User> pageResult = new PageResult<User>()
+            {
+                Data =  users ,
+                TotalCount = count,
+                PageSize = size,
+                CurrentPage = page
+            };
+            return pageResult;
         }
 
         public async Task<bool> UpdateUserInfo(User user)
@@ -87,6 +97,11 @@ namespace Re_Backend.Application.LoginApplication.Services
             user.CreateTime = userResult.CreateTime;
             user.LastLoginTime = userResult.LastLoginTime;
             return await _userRespository.UpdateUser(user);
+        }
+
+        public async Task<PageResult<User>> QueryUserInfoPages(UserDto userDto, int page, int size)
+        {
+            return await _userRespository.QueryUsersByDto(userDto, page, size);  
         }
     }
 }

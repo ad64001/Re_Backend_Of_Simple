@@ -2,6 +2,7 @@
 using Re_Backend.Common.Attributes;
 using Re_Backend.Common.SqlConfig;
 using Re_Backend.Domain.UserDomain.Entity;
+using Re_Backend.Domain.UserDomain.Entity.Dto;
 using Re_Backend.Domain.UserDomain.IRespository;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,40 @@ namespace Re_Backend.Domain.UserDomain.Respository
         {
             List<User> list = await _db.Db.Queryable<User>().ToPageListAsync(page,size);
             return list;
+        }
+
+        public async Task<PageResult<User>> QueryUsersByDto(UserDto dto, int pageNumber = 1, int pageSize = 10)
+        {
+            // 参数校验和分页设置
+            pageNumber = Math.Max(pageNumber, 1);
+            pageSize = Math.Clamp(pageSize, 1, 100);
+
+            var query = _db.Db.Queryable<User>();
+
+            // 动态条件处理
+            if (!string.IsNullOrEmpty(dto.UserName))
+                query = query.Where(u => u.UserName.Contains(dto.UserName));
+
+            if (!string.IsNullOrEmpty(dto.NickName))
+                query = query.Where(u => u.NickName.Contains(dto.NickName));
+
+            if (!string.IsNullOrEmpty(dto.Email))
+                query = query.Where(u => u.Email.Contains(dto.Email));
+
+            if (dto.RoleId.HasValue)
+                query = query.Where(u => u.RoleId == dto.RoleId.Value);
+
+            // 执行分页查询
+            var totalCount = query.Count();
+            var data = await query.ToPageListAsync(pageNumber, pageSize);
+
+            return new PageResult<User>
+            {
+                Data = data,
+                TotalCount = totalCount,
+                CurrentPage = pageNumber,
+                PageSize = pageSize
+            };
         }
 
         [UseTran]

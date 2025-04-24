@@ -6,7 +6,6 @@ using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.Entity.Vo;
 using Re_Backend.Domain.UserDomain.IServices;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Re_Backend.Domain.UserDomain.Entity.Dto;
 
 namespace Re_Backend.Api.Controllers
@@ -50,9 +49,8 @@ namespace Re_Backend.Api.Controllers
         [HttpGet("/api/UsersPage")]
         public async Task<IActionResult> GetUserPage(int size,int pageNumb)
         {
-            var users = await _userService.GetUserPages(size, pageNumb);
-            var count = await _userService.GetUserCount();
-            return Ok(new Result<Object> { Code = ResultEnum.Success, Data = new { Users = users, Count = count } });
+            PageResult<User> task = await _userService.GetUserPages(size, pageNumb);
+            return Ok(new Result<PageResult<User>> { Code = ResultEnum.Success, Data = task });
         }
 
         [HttpGet("/api/UserInfo")]
@@ -68,5 +66,23 @@ namespace Re_Backend.Api.Controllers
             await _userService.DeleteByid(userDto.Id.Value);
             return Ok(new Result<Object> { Code = ResultEnum.Success, Data = null });
         }
+
+        [HttpGet("/api/QueryByUserInfo")]
+        public async Task<IActionResult> QueryByUserInfo(string? UserName,string? NickName,string? Email,int? RoleId, int? PageSize, int? PageNumber)
+        {
+            var userDto = new UserDto
+            {
+                UserName = UserName,
+                NickName = NickName,
+                Email = Email,
+                RoleId = RoleId,
+                PageSize = PageSize,
+                PageNumber = PageNumber
+            };
+
+            PageResult<User> pageResult = await _userService.QueryUserInfoPages(userDto, userDto.PageNumber.Value, userDto.PageSize.Value);
+            return Ok(new Result<PageResult<User>> { Code = ResultEnum.Success, Data = pageResult });
+        }
+
     }
 }

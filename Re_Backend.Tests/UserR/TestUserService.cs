@@ -1,4 +1,5 @@
-﻿using Re_Backend.Domain.UserDomain.IServices;
+﻿using Re_Backend.Domain.UserDomain.Entity.Dto;
+using Re_Backend.Domain.UserDomain.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,12 @@ namespace Re_Backend.Tests.UserR
         [Fact]
         public async Task TestPage()
         {
-            List<Domain.UserDomain.Entity.User> users = await _userService.GetUserPages(1,10);
-            foreach (var item in users)
+            var result = await _userService.QueryUserInfoPages(new UserDto
+            {
+                Email = "@qq.com",
+                RoleId = 1
+            },1,10);
+            foreach (var item in result.Data)
             {
                 _testOutput.WriteLine(item.UserName);
             }
