@@ -69,7 +69,7 @@ namespace Re_Backend.Common.AutoConfiguration
                 Console.WriteLine($"数据库连接字符串: {configs[0].ConnectionString}");
                 Console.WriteLine($"数据库类型: {configs[0].DbType}");
                 containerBuilder.Register(c => new SqlSugarClient(configs))
-                                .SingleInstance();
+                                .InstancePerLifetimeScope();
             }
             catch (Exception ex)
             {

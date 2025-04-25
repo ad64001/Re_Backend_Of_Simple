@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Autofac.Extensions.DependencyInjection;
+using Re_Backend.Domain.CommonDomain.IRespository;
+using Re_Backend.Domain.CommonDomain.IServices;
 
 namespace Re_Backend.Tests
 {
@@ -27,7 +29,8 @@ namespace Re_Backend.Tests
         public ILoginService LoginService { get; private set; }
 
         public IUserService UserService { get; private set; }
-
+        public IPagesRespository PagesRespository { get; private set; }
+        public IPageService PageService { get; private set; }
         public TestFixture()
         {
             var builder = new ContainerBuilder();
@@ -86,6 +89,8 @@ namespace Re_Backend.Tests
             RoleRespository = Container.Resolve<IRolesRespository>();
             LoginService = Container.Resolve<ILoginService>();
             UserService = Container.Resolve<IUserService>();
+            PagesRespository = Container.Resolve<IPagesRespository>();
+            PageService = Container.Resolve<IPageService>();
         }
 
         public void Dispose()
