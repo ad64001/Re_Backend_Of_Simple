@@ -1,4 +1,4 @@
-namespace Re_Backend.Api
+namespace Re_Backend.Api.Controllers.Other
 {
     public class WeatherForecast
     {

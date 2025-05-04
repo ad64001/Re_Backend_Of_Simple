@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Re_Backend.Common;
 using Re_Backend.Common.enumscommon;
+using Re_Backend.Common.OtherEntity;
 using Re_Backend.Domain.CommonDomain.Entity;
 using Re_Backend.Domain.CommonDomain.IServices;
 using System.Security.Claims;

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Re_Backend.Common.enumscommon;
 using Re_Backend.Common.Jwt;
+using Re_Backend.Common.OtherEntity;
 using Re_Backend.Domain.UserDomain.IServices;
 
 namespace Re_Backend.Api.Controllers.Other;
