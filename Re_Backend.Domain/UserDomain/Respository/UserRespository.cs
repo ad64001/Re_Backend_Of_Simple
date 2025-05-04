@@ -1,5 +1,6 @@
 ﻿using Re_Backend.Common;
 using Re_Backend.Common.Attributes;
+using Re_Backend.Common.OtherEntity;
 using Re_Backend.Common.SqlConfig;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.Entity.Dto;

@@ -1,4 +1,4 @@
-﻿using Re_Backend.Common;
+﻿using Re_Backend.Common.OtherEntity;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.Entity.Dto;
 using Re_Backend.Domain.UserDomain.Entity.Vo;

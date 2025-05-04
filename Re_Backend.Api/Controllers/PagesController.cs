@@ -19,6 +19,7 @@ namespace Re_Backend.Api.Controllers
         {
             _pageService = pageService;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetPages()
         {

@@ -1,4 +1,4 @@
-﻿namespace Re_Backend.Common
+﻿namespace Re_Backend.Common.Jwt
 {
     public class JwtSettings
     {

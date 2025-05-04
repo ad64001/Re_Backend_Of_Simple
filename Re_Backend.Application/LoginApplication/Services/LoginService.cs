@@ -1,5 +1,6 @@
 ﻿using Re_Backend.Common;
 using Re_Backend.Common.Attributes;
+using Re_Backend.Common.Jwt;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.IRespository;
 using Re_Backend.Domain.UserDomain.IServices;

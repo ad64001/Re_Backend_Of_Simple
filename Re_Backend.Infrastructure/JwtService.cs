@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Re_Backend.Common;
 using Re_Backend.Common.Attributes;
+using Re_Backend.Common.Jwt;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

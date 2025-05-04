@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Re_Backend.Common;
 using Re_Backend.Common.AutoConfiguration;
+using Re_Backend.Common.Jwt;
 using Re_Backend.Domain.CommonDomain.IRespository;
 using Re_Backend.Domain.CommonDomain.IServices;
 using Re_Backend.Domain.Other;

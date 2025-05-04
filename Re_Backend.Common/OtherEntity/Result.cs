@@ -1,6 +1,6 @@
 ﻿using Re_Backend.Common.enumscommon;
 
-namespace Re_Backend.Common
+namespace Re_Backend.Common.OtherEntity
 {
     public class Result<T>
     {

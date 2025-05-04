@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Re_Backend.Common;
 using Re_Backend.Common.AutoConfiguration;
+using Re_Backend.Common.Jwt;
 using System.Text;
 
 namespace Re_Backend.Api
