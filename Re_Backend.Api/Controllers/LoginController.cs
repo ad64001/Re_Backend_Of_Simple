@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Re_Backend.Common;
 using Re_Backend.Common.enumscommon;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.Entity.Vo;
 using Re_Backend.Domain.UserDomain.IServices;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Re_Backend.Api.Controllers
 {
@@ -19,7 +15,7 @@ namespace Re_Backend.Api.Controllers
         private readonly IUserService _userService;
         private readonly IJwtService _jwtService;
 
-        public LoginController(ILoginService loginService,IUserService userService,IJwtService jwtService)
+        public LoginController(ILoginService loginService, IUserService userService, IJwtService jwtService)
         {
             _loginService = loginService;
             _userService = userService;
@@ -27,23 +23,23 @@ namespace Re_Backend.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody]User user)
+        public async Task<IActionResult> Register([FromBody] User user)
         {
             User user2 = new User()
             {
-                Email=user.Email,
-                UserName=user.UserName,
-                Password=user.Password,
-                NickName=user.NickName
+                Email = user.Email,
+                UserName = user.UserName,
+                Password = user.Password,
+                NickName = user.NickName
             };
             string ressult = await _loginService.Register(user2);
             return Ok(new Result<Object> { Code = ResultEnum.Success, Data = null });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Login(string? email,string passwd,string? username)
+        public async Task<IActionResult> Login(string? email, string passwd, string? username)
         {
-            User user = new User() { Email = email, Password = passwd ,UserName = username };
+            User user = new User() { Email = email, Password = passwd, UserName = username };
             string token = await _loginService.Login(user);
             if (token != "UserNotInDatabase")
             {
@@ -55,7 +51,7 @@ namespace Re_Backend.Api.Controllers
             }
             else
             {
-                return Ok(new Result<Object> { Code = ResultEnum.Fail,Data = null });
+                return Ok(new Result<Object> { Code = ResultEnum.Fail, Data = null });
             }
 
 

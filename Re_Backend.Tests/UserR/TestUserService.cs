@@ -1,10 +1,5 @@
 ﻿using Re_Backend.Domain.UserDomain.Entity.Dto;
 using Re_Backend.Domain.UserDomain.IServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit.Abstractions;
 
 namespace Re_Backend.Tests.UserR
@@ -27,7 +22,7 @@ namespace Re_Backend.Tests.UserR
             {
                 Email = "@qq.com",
                 RoleId = 1
-            },1,10);
+            }, 1, 10);
             foreach (var item in result.Data)
             {
                 _testOutput.WriteLine(item.UserName);

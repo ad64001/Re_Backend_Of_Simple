@@ -1,10 +1,5 @@
 ﻿using Re_Backend.Domain.CommonDomain.Entity;
 using Re_Backend.Domain.CommonDomain.IRespository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit.Abstractions;
 
 namespace Re_Backend.Tests.Pages

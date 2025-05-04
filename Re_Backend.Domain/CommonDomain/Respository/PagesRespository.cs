@@ -2,11 +2,6 @@
 using Re_Backend.Common.SqlConfig;
 using Re_Backend.Domain.CommonDomain.Entity;
 using Re_Backend.Domain.CommonDomain.IRespository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Re_Backend.Domain.CommonDomain.Respository
 {

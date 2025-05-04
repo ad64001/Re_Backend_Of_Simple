@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Re_Backend.Common.enumscommon;
 using Re_Backend.Common;
+using Re_Backend.Common.enumscommon;
 using Re_Backend.Domain.UserDomain.Entity;
+using Re_Backend.Domain.UserDomain.Entity.Dto;
 using Re_Backend.Domain.UserDomain.Entity.Vo;
 using Re_Backend.Domain.UserDomain.IServices;
 using System.Security.Claims;
-using Re_Backend.Domain.UserDomain.Entity.Dto;
 
 namespace Re_Backend.Api.Controllers
 {
@@ -32,13 +32,13 @@ namespace Re_Backend.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateUserInfo([FromBody]UserDto userdto)
+        public async Task<IActionResult> UpdateUserInfo([FromBody] UserDto userdto)
         {
             User user = new User()
             {
                 Id = userdto.Id.Value,
                 NickName = userdto.NickName,
-                Email = userdto.Email,  
+                Email = userdto.Email,
                 Password = userdto.Password,
                 RoleId = userdto.RoleId.Value,
             };
@@ -47,7 +47,7 @@ namespace Re_Backend.Api.Controllers
         }
 
         [HttpGet("/api/UsersPage")]
-        public async Task<IActionResult> GetUserPage(int size,int pageNumb)
+        public async Task<IActionResult> GetUserPage(int size, int pageNumb)
         {
             PageResult<User> task = await _userService.GetUserPages(size, pageNumb);
             return Ok(new Result<PageResult<User>> { Code = ResultEnum.Success, Data = task });
@@ -61,14 +61,14 @@ namespace Re_Backend.Api.Controllers
         }
 
         [HttpPost("/api/DeleteUser")]
-        public async Task<IActionResult> DeleteByid([FromBody]UserDto userDto)
+        public async Task<IActionResult> DeleteByid([FromBody] UserDto userDto)
         {
             await _userService.DeleteByid(userDto.Id.Value);
             return Ok(new Result<Object> { Code = ResultEnum.Success, Data = null });
         }
 
         [HttpGet("/api/QueryByUserInfo")]
-        public async Task<IActionResult> QueryByUserInfo(string? UserName,string? NickName,string? Email,int? RoleId, int? PageSize, int? PageNumber)
+        public async Task<IActionResult> QueryByUserInfo(string? UserName, string? NickName, string? Email, int? RoleId, int? PageSize, int? PageNumber)
         {
             var userDto = new UserDto
             {

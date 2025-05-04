@@ -1,10 +1,5 @@
 ﻿using Re_Backend.Common.Attributes;
 using Re_Backend.Common.SqlConfig;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Re_Backend.Domain.Other
 {
@@ -58,7 +53,7 @@ namespace Re_Backend.Domain.Other
             //DbContext.Db.Insertable(new User { Name = "User2" , Age = 33}).ExecuteCommand();
             // 场景1：插入第一条数据后抛出异常（验证插入回滚）
             DbContext.Db.Insertable(new TestUser { Name = "User39", Age = 37 }).ExecuteCommand();
-            
+
 
         }
 

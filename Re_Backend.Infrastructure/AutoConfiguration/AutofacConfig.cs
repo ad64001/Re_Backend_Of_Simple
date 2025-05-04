@@ -1,18 +1,13 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Re_Backend.Common.Attributes;
-using Re_Backend.Common.Cache;
 using Re_Backend.Common.SqlConfig;
 using Re_Backend.Common.Transactions;
 using Re_Backend.Infrastructure;
 using Re_Backend.Infrastructure.CacheConfig;
 using Re_Backend.Infrastructure.SqlConfig;
 using SqlSugar;
-using System.Configuration;
 using System.Reflection;
 
 
@@ -22,7 +17,7 @@ namespace Re_Backend.Common.AutoConfiguration
     {
         public static void ConfigureContainer(ContainerBuilder containerBuilder, IConfiguration configuration, params string[] assemblyNames)
         {
-            
+
 
             var validAssemblies = new List<Assembly>();
             foreach (var assemblyName in assemblyNames)

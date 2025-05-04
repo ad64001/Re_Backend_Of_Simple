@@ -1,18 +1,17 @@
 ﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Re_Backend.Common.AutoConfiguration;
-using Re_Backend.Common;
-using Re_Backend.Domain.UserDomain.IRespository;
-using Re_Backend.Domain.UserDomain.Respository;
-using Re_Backend.Domain.Other;
-using Re_Backend.Domain.UserDomain.IServices;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Autofac.Extensions.DependencyInjection;
+using Re_Backend.Common;
+using Re_Backend.Common.AutoConfiguration;
 using Re_Backend.Domain.CommonDomain.IRespository;
 using Re_Backend.Domain.CommonDomain.IServices;
+using Re_Backend.Domain.Other;
+using Re_Backend.Domain.UserDomain.IRespository;
+using Re_Backend.Domain.UserDomain.IServices;
+using System.Text;
 
 namespace Re_Backend.Tests
 {

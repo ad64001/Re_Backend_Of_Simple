@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Re_Backend.Common;
 using Re_Backend.Common.AutoConfiguration;
-using Re_Backend.Infrastructure;
 using System.Text;
 
 namespace Re_Backend.Api
@@ -14,6 +13,13 @@ namespace Re_Backend.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // 添加控制器服务
+            builder.Services.AddControllers(options =>
+            {
+                // 注册全局异常过滤器
+                options.Filters.Add<GlobalExceptionFilter>();
+            });
             // 配置缓存
             //这里是Autofac的配置
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());

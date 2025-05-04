@@ -1,14 +1,7 @@
 ﻿using Castle.DynamicProxy;
 using Re_Backend.Common.Attributes;
 using Re_Backend.Common.Transactions;
-using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Re_Backend.Infrastructure
 {

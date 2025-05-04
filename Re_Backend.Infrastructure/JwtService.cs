@@ -2,14 +2,9 @@
 using Microsoft.IdentityModel.Tokens;
 using Re_Backend.Common;
 using Re_Backend.Common.Attributes;
-using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Re_Backend.Infrastructure
 {
@@ -23,7 +18,7 @@ namespace Re_Backend.Infrastructure
             _jwtSettings = jwtSettings.Value;
         }
 
-        public string GenerateToken(string userId,string role)
+        public string GenerateToken(string userId, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);

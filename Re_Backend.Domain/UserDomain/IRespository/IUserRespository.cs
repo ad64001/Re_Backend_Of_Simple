@@ -1,11 +1,6 @@
 ﻿using Re_Backend.Common;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.Entity.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Re_Backend.Domain.UserDomain.IRespository
 {

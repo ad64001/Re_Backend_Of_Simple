@@ -1,15 +1,9 @@
 ﻿using Re_Backend.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace Re_Backend.Tests.Other
 {
-    public class CommonTest 
+    public class CommonTest
     {
         private readonly ITestOutputHelper testOutput;
 

@@ -3,11 +3,6 @@ using Re_Backend.Common.Attributes;
 using Re_Backend.Common.SqlConfig;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.IRespository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Re_Backend.Domain.UserDomain.Respository
 {

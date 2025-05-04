@@ -1,13 +1,7 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Re_Backend.Common;
 using Re_Backend.Common.enumscommon;
-using Re_Backend.Common.SqlConfig;
-using Re_Backend.Domain;
-using Re_Backend.Domain.UserDomain.Entity;
-using Re_Backend.Domain.UserDomain.IRespository;
 using Re_Backend.Domain.UserDomain.IServices;
-using System.Threading.Tasks;
 
 namespace Re_Backend.Api.Controllers.Other;
 
@@ -24,7 +18,7 @@ public class WeatherForecastController : ControllerBase
     private readonly ILoginService _loginService;
     private readonly IJwtService _jwtService;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger,ILoginService loginService,IJwtService jwtService)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, ILoginService loginService, IJwtService jwtService)
     {
         _logger = logger;
         _loginService = loginService;
@@ -48,5 +42,5 @@ public class WeatherForecastController : ControllerBase
     //    return Ok(new { token });
     //}
 
-    
+
 }

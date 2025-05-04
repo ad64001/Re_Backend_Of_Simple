@@ -4,11 +4,6 @@ using Re_Backend.Common.SqlConfig;
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.Entity.Dto;
 using Re_Backend.Domain.UserDomain.IRespository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Re_Backend.Domain.UserDomain.Respository
 {
@@ -51,7 +46,7 @@ namespace Re_Backend.Domain.UserDomain.Respository
 
         public async Task<List<User>> QueryUserPages(int size, int page)
         {
-            List<User> list = await _db.Db.Queryable<User>().ToPageListAsync(page,size);
+            List<User> list = await _db.Db.Queryable<User>().ToPageListAsync(page, size);
             return list;
         }
 
@@ -93,10 +88,10 @@ namespace Re_Backend.Domain.UserDomain.Respository
         public async Task<bool> UpdateUser(User user)
         {
             var _user = await _db.Db.Queryable<User>().InSingleAsync(user.Id);
-            GlobalEntityUpdater.UpdateEntity(_user,user);
+            GlobalEntityUpdater.UpdateEntity(_user, user);
             return await _db.Db.Updateable<User>(_user).ExecuteCommandAsync() > 0;
         }
 
-        
+
     }
 }

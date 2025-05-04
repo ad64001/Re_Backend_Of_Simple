@@ -2,11 +2,6 @@
 using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.Entity.Dto;
 using Re_Backend.Domain.UserDomain.Entity.Vo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Re_Backend.Domain.UserDomain.IServices
 {
@@ -17,5 +12,5 @@ namespace Re_Backend.Domain.UserDomain.IServices
         public Task<PageResult<User>> GetUserPages(int page, int size);
         public Task DeleteByid(int id);
         public Task<PageResult<User>> QueryUserInfoPages(UserDto userDto, int page, int size);
-    } 
+    }
 }

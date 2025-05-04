@@ -1,11 +1,5 @@
-﻿using Re_Backend.Domain;
-using Re_Backend.Domain.UserDomain.Entity;
+﻿using Re_Backend.Domain.UserDomain.Entity;
 using Re_Backend.Domain.UserDomain.IRespository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit.Abstractions;
 
 namespace Re_Backend.Tests.UserR
@@ -63,7 +57,7 @@ namespace Re_Backend.Tests.UserR
         {
             User testUser = new User
             {
-                Id=1,
+                Id = 1,
                 UserName = "TestUser222",
                 Password = null,
                 Email = null,
@@ -85,7 +79,7 @@ namespace Re_Backend.Tests.UserR
         [Fact]
         public async Task TestPage()
         {
-            List<User> users = await _userRespository.QueryUserPages(5,1);
+            List<User> users = await _userRespository.QueryUserPages(5, 1);
             foreach (var item in users)
             {
                 _testOutput.WriteLine($"User: {item.UserName}, ID: {item.Id}");

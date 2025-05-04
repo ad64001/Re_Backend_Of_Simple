@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-using Re_Backend.Common;
+﻿using Re_Backend.Common;
 using Re_Backend.Common.Attributes;
 using Re_Backend.Domain.UserDomain.Entity;
-using Re_Backend.Domain.UserDomain.Entity.Vo;
 using Re_Backend.Domain.UserDomain.IRespository;
 using Re_Backend.Domain.UserDomain.IServices;
 
@@ -16,7 +14,7 @@ namespace Re_Backend.Application.LoginApplication.Services
         private readonly IRolesRespository _rolesRespository;
         private readonly IJwtService _jwtService;
 
-        public LoginService(IUserRespository userRespository,IRolesRespository rolesRespository,IJwtService jwtService)
+        public LoginService(IUserRespository userRespository, IRolesRespository rolesRespository, IJwtService jwtService)
         {
             _userRespository = userRespository;
             _rolesRespository = rolesRespository;
@@ -53,7 +51,7 @@ namespace Re_Backend.Application.LoginApplication.Services
                 // 获取用户角色
                 Role role = await _rolesRespository.QueryRoleById(loginuser.RoleId);
                 string roleName = role?.Name;
-                return _jwtService.GenerateToken(loginuser.Id.ToString(),roleName);
+                return _jwtService.GenerateToken(loginuser.Id.ToString(), roleName);
 
             }
             catch (Exception)
@@ -61,7 +59,7 @@ namespace Re_Backend.Application.LoginApplication.Services
                 return "NotUser";
                 throw;
             }
-            
+
         }
 
         [UseTran]
@@ -80,9 +78,9 @@ namespace Re_Backend.Application.LoginApplication.Services
             {
                 return "passwd length error";
             }
-            if (user.NickName == null||string.IsNullOrEmpty(user.NickName))
+            if (user.NickName == null || string.IsNullOrEmpty(user.NickName))
             {
-                user.NickName = "Te_"+ AESAlgorithm.EncryptString(user.UserName);
+                user.NickName = "Te_" + AESAlgorithm.EncryptString(user.UserName);
             }
 
             GlobalEntityUpdater.UpdateEntity(newUser, user);

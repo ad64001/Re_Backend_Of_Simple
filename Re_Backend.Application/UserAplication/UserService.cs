@@ -5,16 +5,11 @@ using Re_Backend.Domain.UserDomain.Entity.Dto;
 using Re_Backend.Domain.UserDomain.Entity.Vo;
 using Re_Backend.Domain.UserDomain.IRespository;
 using Re_Backend.Domain.UserDomain.IServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Re_Backend.Application.UserAplication
 {
     [Injectable]
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
         private readonly IUserRespository _userRespository;
         private readonly IRolesRespository _rolesRespository;
@@ -33,7 +28,7 @@ namespace Re_Backend.Application.UserAplication
             {
                 await _userRespository.DeleteUser(id);
             }
-            
+
         }
 
         private async Task<int> GetUserCount()
@@ -77,7 +72,7 @@ namespace Re_Backend.Application.UserAplication
             var count = await GetUserCount();
             PageResult<User> pageResult = new PageResult<User>()
             {
-                Data =  users ,
+                Data = users,
                 TotalCount = count,
                 PageSize = size,
                 CurrentPage = page
@@ -101,7 +96,7 @@ namespace Re_Backend.Application.UserAplication
 
         public async Task<PageResult<User>> QueryUserInfoPages(UserDto userDto, int page, int size)
         {
-            return await _userRespository.QueryUsersByDto(userDto, page, size);  
+            return await _userRespository.QueryUsersByDto(userDto, page, size);
         }
     }
 }
