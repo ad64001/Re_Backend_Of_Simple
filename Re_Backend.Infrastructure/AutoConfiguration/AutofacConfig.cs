@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Re_Backend.Common.Attributes;
 using Re_Backend.Common.SqlConfig;
 using Re_Backend.Common.Transactions;
@@ -15,8 +16,10 @@ namespace Re_Backend.Common.AutoConfiguration
 {
     public static class AutofacConfig
     {
-        public static void ConfigureContainer(ContainerBuilder containerBuilder, IConfiguration configuration, params string[] assemblyNames)
+
+        public static void ConfigureContainer(ContainerBuilder containerBuilder, IConfiguration configuration, ILoggerFactory loggerFactory, params string[] assemblyNames)
         {
+            var logger = loggerFactory?.CreateLogger(nameof(AutofacConfig));
 
 
             var validAssemblies = new List<Assembly>();
@@ -29,7 +32,7 @@ namespace Re_Backend.Common.AutoConfiguration
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"加载程序集 {assemblyName} 时出错: {ex.Message}");
+                    logger?.LogWarning(ex, "加载程序集 {Assembly} 失败", assemblyName);
                 }
             }
             var types = validAssemblies.SelectMany(a => a.GetTypes())
@@ -68,7 +71,7 @@ namespace Re_Backend.Common.AutoConfiguration
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"注册 SqlSugarClient 时出错: {ex.Message}");
+                logger?.LogError(ex, "注册 SqlSugarClient 失败");
             }
 
             // 注册 DbContext
@@ -86,13 +89,25 @@ namespace Re_Backend.Common.AutoConfiguration
                             .InstancePerLifetimeScope();
 
 
-            // 从容器中解析 DbContext 并进行自动建表
+            // 自动建表：在临时 scope 中执行，避免把 scoped 服务泄露到 root
             containerBuilder.RegisterBuildCallback(container =>
             {
-                var dbContext = container.Resolve<DbContext>();
-                var tableCreator = new SqlSugarTableCreator(dbContext.Db);
-                tableCreator.CreateTablesFromModels();
+                try
+                {
+                    using (var scope = container.BeginLifetimeScope())
+                    {
+                        var dbCtx = scope.Resolve<DbContext>();
+                        var tableCreator = new SqlSugarTableCreator(dbCtx.Db);
+                        tableCreator.CreateTablesFromModels();
+                    }
+                    logger?.LogInformation("自动建表完成。");
+                }
+                catch (Exception ex)
+                {
+                    logger?.LogError(ex, "自动建表失败。");
+                }
             });
+
 
             // 注册缓存服务
             CacheConfiguration.ConfigureCache(containerBuilder, configuration);
