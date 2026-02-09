@@ -5,4 +5,6 @@
   + Re_Backend.Infrastructure (数据库上下文，仓库实现)
   + Re_Backend.Common (共享工具，扩展)
   + Re_Backend.Tests (单元测试，集成测试)
- 重置ing 
+ 重置ing
+
+DDD运用有问题 需要架构重置 
