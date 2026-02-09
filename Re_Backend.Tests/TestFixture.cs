@@ -17,7 +17,7 @@ using System.Text;
 
 namespace Re_Backend.Tests
 {
-    //夹具一式
+    //夹具2式
     public class TestFixture : IDisposable
     {
         public IContainer Container { get; private set; }
