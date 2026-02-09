@@ -24,9 +24,28 @@ namespace Re_Backend.Api
             // 配置缓存
             //这里是Autofac的配置
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-            builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+            builder.Host.ConfigureContainer<ContainerBuilder>((hostContext, containerBuilder) =>
             {
-                AutofacConfig.ConfigureContainer(containerBuilder, builder.Configuration, "Re_Backend.Infrastructure", "Re_Backend.Domain", "Re_Backend.Application", "Re_Backend.Common");
+                // 1) 基于 hostContext.Configuration 创建 LoggerFactory
+                var loggerFactory = LoggerFactory.Create(lb =>
+                {
+                    // 使用 appsettings:Logging 配置
+                    lb.AddConfiguration(hostContext.Configuration.GetSection("Logging"));
+                    lb.AddConsole();
+                    lb.AddDebug();
+                    // 你可以按需添加其他 provider（EventSource、EventLog、Seq 等）
+                });
+
+                // 2) 把 LoggerFactory 注册到 Autofac（以便其它组件能 Resolve<ILoggerFactory>）
+                containerBuilder.RegisterInstance(loggerFactory).As<ILoggerFactory>().SingleInstance();
+
+                // 可选：让 ILogger<T> 也能被解析（简单注册 open generic）
+                // Microsoft.Extensions.Logging.Logger<T> 是可用的具体实现
+                containerBuilder.RegisterGeneric(typeof(Microsoft.Extensions.Logging.Logger<>))
+                                .As(typeof(ILogger<>))
+                                .SingleInstance();
+
+                AutofacConfig.ConfigureContainer(containerBuilder, builder.Configuration,loggerFactory,"Re_Backend.Infrastructure", "Re_Backend.Domain", "Re_Backend.Application", "Re_Backend.Common");
             });
             //JsonSetting配置
             // 配置

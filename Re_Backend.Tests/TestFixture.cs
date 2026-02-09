@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +44,11 @@ namespace Re_Backend.Tests
             // Configure service collection
             var services = new ServiceCollection();
 
+            ILoggerFactory loggerFactory = LoggerFactory.Create(logBuilder =>
+            {
+                logBuilder.AddConsole(); // 输出到控制台，测试环境可根据需要调整
+                logBuilder.SetMinimumLevel(LogLevel.Information);
+            });
             // 添加 JWT 配置
             services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
 
@@ -75,7 +81,7 @@ namespace Re_Backend.Tests
             builder.Populate(services);
 
             // Register services using AutofacConfig
-            AutofacConfig.ConfigureContainer(builder, configuration, "Re_Backend.Infrastructure", "Re_Backend.Domain", "Re_Backend.Application", "Re_Backend.Common");
+            AutofacConfig.ConfigureContainer(builder, configuration,loggerFactory, "Re_Backend.Infrastructure", "Re_Backend.Domain", "Re_Backend.Application", "Re_Backend.Common");
 
             // Build the container
             Container = builder.Build();

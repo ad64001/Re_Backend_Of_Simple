@@ -33,7 +33,11 @@ namespace Re_Backend.Api.Controllers
                 Password = user.Password,
                 NickName = user.NickName
             };
-            string ressult = await _loginService.Register(user2);
+            string result = await _loginService.Register(user2);
+            if (result.Length > 4)
+            {
+                return Ok(new Result<Object> { Code = ResultEnum.Fail, Data = result });
+            }
             return Ok(new Result<Object> { Code = ResultEnum.Success, Data = null });
         }
 
